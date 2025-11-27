@@ -57,6 +57,11 @@
 // tasks/ActualizarFamiliarApi.ts
 import { Task } from '@serenity-js/core';
 import { Send, PutRequest, LastResponse } from '@serenity-js/rest';
+import * as https from 'https';
+
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false, // Desactiva la validación SSL
+});
 
 export class ActualizarFamiliarApi {
   static withData(id: string, birthDate: string, eps: string) {
@@ -87,7 +92,10 @@ export class ActualizarFamiliarApi {
 
     return Task.where(
       '#actor actualiza la información del familiar',
-      Send.a(PutRequest.to(endpoint).with(payload))      
+      Send.a(PutRequest.to(endpoint)
+      .with(payload)
+      .using({ httpsAgent }) // Aquí aplicas el agente
+    )      
     );
   }
 }

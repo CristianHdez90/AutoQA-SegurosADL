@@ -7,4 +7,11 @@ export class OpenPage {
             Navigate.to('https://security-dev.migrupoesaval.com/security/unauthorized'),
         );
     }
+
+    static atFormUrl(){
+        return Task.where(`#open the application form URL`,
+            Navigate.to('https://security-dev.migrupoesaval.com/security/'),
+        );        
+    }
+
 }

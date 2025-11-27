@@ -8,8 +8,14 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  # pages: write
+  # id-token: write      
+
 env:
   REPORT_DIR: "./target/site/serenity"
+  TEST_TAG: "@Validar_Formulario_Radicacion_Para_mi_cónyuge"  # <--- Aquí se define la etiqueta de prueba
 
 jobs:
   test:
@@ -45,6 +51,7 @@ jobs:
           --require src/support/hooks.config.ts
           --require src/steps/**/*.ts
           src/features/**/*.feature
+          --tags "${{ env.TEST_TAG }}"
           --format @serenity-js/cucumber
           --format-options "{\"outputDirectory\": \"$REPORT_DIR\", \"specDirectory\": \"src/features\"}"
         continue-on-error: true
